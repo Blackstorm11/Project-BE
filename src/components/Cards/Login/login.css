@@ -1,0 +1,60 @@
+#eye {
+  margin-left: -25px;
+  margin-bottom: 5px;
+}
+
+#pass {
+  display: flex;
+  flex-direction: row;
+}
+#login{
+  font-size: 50px;
+}
+
+label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+img {
+  justify-content: center;
+  width: 18vw;
+}
+/* default */
+.card{
+  width: 700px !important;
+}
+.img-box {
+  display: flex;
+  justify-content: center;
+}
+
+/* shrink 1 */
+@media only screen and (max-width: 1400px) {
+  .card {
+    width: 400px !important;
+  }
+  .img-box {
+    display: flex;
+    justify-content: center;
+  }
+}
+/* shrink 2 */
+@media only screen and (max-width: 768px) {
+  .card {
+    width: 450px !important;
+  }
+  .img-box img {
+    width: 200px;
+  }
+}
+/* shrink 3 */
+@media only screen and (max-width: 668px) {
+  .card {
+    width: 250px !important;
+  }
+  .img-box img {
+    width: 200px;
+  }
+}
+

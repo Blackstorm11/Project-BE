@@ -1,0 +1,22 @@
+thead {
+    font-weight: normal;
+    text-decoration: underline;
+    color: #121212cb;
+}
+
+tbody {
+    color: rgba(255, 255, 255, 0.753);
+}
+
+table,tbody,thead,th {
+    border: 1px solid black;
+}
+.btn1{
+    background-color: black;
+    color: white;
+    border-color: white;
+    border-radius: 5px;
+    padding: 8px;
+    
+}
+/* hellow */

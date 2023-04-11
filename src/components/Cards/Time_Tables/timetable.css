@@ -1,0 +1,77 @@
+.container5{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .container5 .box5 h1{
+  color: aliceblue;
+  text-align: center;
+  }
+  
+  .container5 .box5{
+  position: relative;
+  justify-content: center;
+  background-color: grey;
+  top: 10%;
+  width: 90%;
+  margin-left: 5%;
+  height:90%;
+  }
+  
+
+  
+
+  
+  /* Cards */
+  .t_users{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  
+  .t_users .t_card{
+    width: 25%;
+    margin: 10px;
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  }
+  .t_users .t_card img{
+    width: 70px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .t_users .t_card h4{
+    text-transform: uppercase;
+  }
+  .t_users .t_card p{
+    font-size: 12px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+  .t_users table{
+    margin:  auto;
+  
+  }
+  .t_users td{
+    font-size: 14px;
+    padding-right: 15px;
+  }
+  .t_users .t_card button{
+    width: 100%;
+    margin-top: 8px;
+    padding: 7px;
+    cursor: pointer;
+    border-radius: 10px;
+    background: transparent;
+    border: 2px solid black;
+  }
+  .t_users .t_card button:hover{
+    background: black;
+    color: #fff;
+    transition: 0.5s;
+  }

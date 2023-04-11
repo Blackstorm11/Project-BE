@@ -1,0 +1,16 @@
+#dt {
+
+    width: 50%;
+    height: 160px;
+
+} 
+
+#dp {
+    width: 130px;
+    height: 130px;
+    border-radius: 150px;
+    margin-top: 5px;
+    border: 2px #121212 solid;
+
+}
+

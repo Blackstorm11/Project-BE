@@ -1,0 +1,26 @@
+.card {
+  width: 20vw;
+}
+
+.user-box {
+  display: flex;
+  flex-direction: column;
+}
+
+#eye {
+  align-self: center;
+  margin-top: 5px;
+}
+
+.label {
+  text-align: center;
+}
+
+#login {
+  font-size: 40px;
+}
+
+.bt {
+  text-align: center;
+  margin-top: 30px;
+}

@@ -5,7 +5,7 @@ import Attendance from "../components/Log/Attendance";
 export default function Attendance_log(){
    return(
     <>
-    <Navbar/>
+     <Navbar/>
     <Attendance/>
     </>
    );

@@ -15,7 +15,7 @@ const Adduser = () => {
 
   return (
     <>
-      <Navbar />
+     
       <Add/>
     </>
   );

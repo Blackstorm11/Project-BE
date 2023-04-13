@@ -1,24 +1,34 @@
 import React, { useState ,useEffect} from 'react';
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import ReactDOM from 'react-dom/client';
 import "./timetable.css"
 import Subjects from './data.json'
 
-function Timetables  ({handleRowClick}) {
+function Timetables  ({setSubjectsForCurrentDay}) {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const nevigate= useNavigate()
+  const handleRowClick=()=>{
+    nevigate('/face')
+  }
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-  // console.log(Subjects)
-  const currentDay = selectedDate.toLocaleString("en-us", { weekday: "long" });
+   // console.log(Subjects)
+   const currentDay = selectedDate.toLocaleString("en-us", { weekday: "long" });
+  //fetch data from api
+  useEffect(()=>{
+    async function fetchData(){
+      const response= await fetch('http://localhost:3001/subjects')
+      const data = await response.json();
+      setSubjectsForCurrentDay(data); 
+    }
+    fetchData()
+  },[])
+ 
   const subjectsForCurrentDay = Subjects[0][currentDay];
    console.log(currentDay)
 
   return (
-
-
-
    <>   
 
     <div className="container5">
@@ -115,7 +125,7 @@ function Timetables  ({handleRowClick}) {
         </thead>
         <tbody>
           {Object.keys(subjectsForCurrentDay).map((timeslot) => (
-            <tr key={timeslot}>
+            <tr key={timeslot} onClick={handleRowClick}>
               <td>{timeslot}</td>
               <td>{subjectsForCurrentDay[timeslot]}</td>
             </tr>

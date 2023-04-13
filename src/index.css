@@ -11,6 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -41,6 +42,9 @@ button {
 	background-clip: padding-box, border-box;
 	background-origin: border-box;
 	transition: .6s ease-in;
+}
+header{
+	margin-top:40px;
 }
 
 * {

@@ -1,13 +1,13 @@
 import axios from "axios";
-import React from "react";
-import { Link, Navigate} from "react-router-dom";
+import React, {useState} from "react";
+import { Link, useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 import login from "../../../assets/login.gif";
 import "./login.css";
 
 
-
 const Login = () => {
-
+  let navigate = useNavigate();
   function hoverOut() {
     var p = document.getElementById("pwd");
     p.setAttribute("type", "password");
@@ -19,14 +19,8 @@ const Login = () => {
   }
 
   const token = localStorage.getItem("token");
-
-  let loggedIn=true;
-  if(token == null){
-    loggedIn=false
-  }
-
   const custom_axios = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3001',
     headers: {
         Authorization: "Bearer" + token,
         Accept: "*/*",
@@ -36,19 +30,14 @@ const Login = () => {
     timeout: 5000
 });
 
-  // const [email, setEmail] = React.useState('');
-  // const [password, setPassword]=React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword]=useState('');
   
 
 const loginApp =async(e)=> {
   e.preventDefault();
-
-  let email=document.getElementById("email").value;
-  let password=document.getElementById("pwd").value;
-  let loggedIn=false;
-
   if(email==""|| password==""){
-    console.info("Please fill in the info");
+    toast.error("Please fill in the info");
     return;
   }
   try{
@@ -57,10 +46,8 @@ const loginApp =async(e)=> {
       password: password,
     });
     localStorage.setItem("token", response.data.token);
-    loggedIn=true;
-    console.log(response);
-    window.location.href="/dashboard"
-    
+    toast.success("Login Successful")
+    navigate("/dashboard")
   
   }catch(error){
     if(error.response.status== 401) console.warn(error.response.data.message);
@@ -95,7 +82,7 @@ const loginApp =async(e)=> {
   return (
     <div className="card position-absolute top-50 start-50 translate-middle">
       <div className="card-body">
-        <form onSubmit={loginApp}>
+        <form >
           <div>
             <div className="img-box">
               <img className="img" alt="..." src={login} />
@@ -110,8 +97,7 @@ const loginApp =async(e)=> {
                 className="form-control mt-1"
                 placeholder="Enter Email"
                 id="email"
-                //  onChange={(e)=> setEmail(e.target.value)}
-              
+                onChange={(e)=> setEmail(e.target.value)}
                 aria-required
               />
             </div>
@@ -123,7 +109,7 @@ const loginApp =async(e)=> {
                   id="pwd"
                   className="form-control mt-1"
                   placeholder="Enter Password"
-                  // onChange={(e)=> setPassword(e.target.value)}
+                  onChange={(e)=> setPassword(e.target.value)}
                   aria-required
 
                 />
@@ -141,7 +127,7 @@ const loginApp =async(e)=> {
                   {" "}
                   Forgot Password?
                 </Link>
-              </label><bR></bR>
+              </label>
             </div>
             &nbsp;&nbsp;&nbsp;
             <div className="label">

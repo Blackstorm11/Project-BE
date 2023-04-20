@@ -64,18 +64,18 @@ const register = async (e) => {
   //});
 
   //console.log("clicked");
-  try {
+  // try {
     
-    const resp = axios.post("http://localhost:3000/users", {
-      firstname: "pandu",
-      lastname: "naik",
-      username: "pandu123",
-      email: "padnu@gmail.com"
-    },
-    );
-  } catch (error) {
-    console.log(error.response);
-  }
+  //   const resp = axios.post("http://localhost:3000/users", {
+  //     firstname: "pandu",
+  //     lastname: "naik",
+  //     username: "pandu123",
+  //     email: "padnu@gmail.com"
+  //   },
+  //   );
+  // } catch (error) {
+  //   console.log(error.response);
+  // }
 };
 
   return (

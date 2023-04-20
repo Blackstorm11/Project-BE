@@ -4,7 +4,7 @@ export const ApiConstants ={
         DELETE: (userId: number)=>{
             return "/users/" +userId;
         },
-        ADD_USER: "users/add-user",
+        ADD_USER: "/track/add-user",
     },
     GITHISTORY:{
         ADD: (userId : number)=>{
@@ -12,6 +12,8 @@ export const ApiConstants ={
         }
 
     },
+  
     LOGIN: "/auth/login",
+
 
 };

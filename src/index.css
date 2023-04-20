@@ -81,7 +81,11 @@ header{
 html {
 	scrollbar-width: thin;
 	scroll-behavior: smooth;
-	background-color: var(--bg);
+	background: rgb(3,0,52);
+	background: rgb(3,0,52);
+	background: linear-gradient(90deg, rgba(3,0,52,1) 0%, rgba(42,118,134,1) 50%, rgba(3,0,52,1) 100%);
+    background-attachment: fixed;
+    background-size: cover;
 }
 /* 
 body, button, input {

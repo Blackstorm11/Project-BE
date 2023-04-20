@@ -45,7 +45,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/time_table" element={<Timetable_log />} />
           {/* <Route path="/attendance_log" element={<Attendance_log />} /> */}
-          <Route path="/face" element={<ProtectRoute><FaceRecognition /></ProtectRoute>} />
+          <Route path="/face" element={<FaceRecognition />} />
         </Routes>
       
     </>

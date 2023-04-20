@@ -2,8 +2,8 @@ import axios from "axios";
 
 const token: string = "";
 
-const custom_axios = axios.create({
-    baseURL: 'http://localhost:3000',
+const customAxios = axios.create({
+    baseURL: 'http://localhost:3001',
     headers: {
         Authorization: "Bearer" + token,
         Accept: "*/*",
@@ -12,5 +12,20 @@ const custom_axios = axios.create({
     },
     timeout: 5000
 })
+const data = {
+    Username: "name",
+    password: "password123",
+    rollNo:"rollNo",
+    semester:"4"
+  };
+  
+  customAxios.post("http://localhost:3001", data)
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  
 
-export default custom_axios;
+export default customAxios;

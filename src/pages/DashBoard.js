@@ -32,7 +32,7 @@ export default function Adminsignup() {
 
   return (
     <>  
-        
+        <Navbar/>
         <Card_one/>
     </>
   );

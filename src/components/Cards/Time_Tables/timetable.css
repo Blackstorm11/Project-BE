@@ -1,77 +1,128 @@
 .container5{
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-  .container5 .box5 h1{
-  color: aliceblue;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.container5 .box5 h1{
+color: white;
+text-align: center;
+}
+
+.container5 .box5{
+position: relative;
+justify-content: center;
+top: 10%;
+width: 90%;
+margin-left: 5%;
+height:90%;
+/* background-color: grey; */
+}
+
+
+
+
+
+/* Cards */
+.t_users{
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.t_users .t_card{
+  width: 30%;
+  margin: 10px;
+  background: #fff;
   text-align: center;
-  }
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.t_users .t_card img{
+  width: 50px;
+  height: 10px;
+  border-radius: 50%;
+}
+.t_users .t_card h4{
+  text-transform: uppercase;
+}
+.t_users .t_card p{
+  font-size: 12px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+.t_users table{
+  margin:  auto;
   
-  .container5 .box5{
-  position: relative;
-  justify-content: center;
-  background-color: grey;
-  top: 10%;
+
+}
+.t_users td{
+  font-size: 14px;
+  padding-right: 15px;
+}
+.t_users .t_card button{
+  width: 100%;
+  margin-top: 8px;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 10px;
+  background: transparent;
+  border: 2px solid black;
+}
+.t_users .t_card button:hover{
+  background: black;
+  color: #fff;
+  transition: 0.5s;
+}
+
+
+ /* Time Table */
+ .container5 .box5 table thead tr th{
+  color: black;
+  border-color: black;
+ }
+.container5 .box5 table {
+  text-align: center; 
   width: 90%;
-  margin-left: 5%;
-  height:90%;
-  }
-  
+  height:50%;
+  color: black;
+  background-color:aliceblue;
+  margin-left: auto;
+  margin-right: auto;
+}
+.container5 .box5 table th {
+  text-align: center;
+  padding: 25px;
+  font-size: large;
+  border-color: 3px solid black;
+}
 
-  
+.container5 .box5 table td {
+  text-align: center;
+  border: 3px solid black;
 
-  
-  /* Cards */
-  .t_users{
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-  }
-  
-  .t_users .t_card{
-    width: 25%;
-    margin: 10px;
-    background: #fff;
-    text-align: center;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-  }
-  .t_users .t_card img{
-    width: 70px;
-    height: 10px;
-    border-radius: 50%;
-  }
-  .t_users .t_card h4{
-    text-transform: uppercase;
-  }
-  .t_users .t_card p{
-    font-size: 12px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-  }
-  .t_users table{
-    margin:  auto;
-  
-  }
-  .t_users td{
-    font-size: 14px;
-    padding-right: 15px;
-  }
-  .t_users .t_card button{
-    width: 100%;
-    margin-top: 8px;
-    padding: 7px;
-    cursor: pointer;
-    border-radius: 10px;
-    background: transparent;
-    border: 2px solid black;
-  }
-  .t_users .t_card button:hover{
-    background: black;
-    color: #fff;
-    transition: 0.5s;
-  }
+}
+
+/* calender */
+
+
+.t_users .t__card button{
+  width: 100%;
+  margin-top: 8px;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 10px;
+  color: white;
+  border: 2px solid white;
+}
+.t_users .t__card button:hover{
+  background: white;
+  color: white;
+  transition: 0.5s;
+}
+
+ .t__card h4 {
+  color:white;
+}

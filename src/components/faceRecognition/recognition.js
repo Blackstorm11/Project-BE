@@ -15,129 +15,129 @@ function FaceRecognition() {
     ]).then(start);
   }, []);
 
-//   const start = async () => {
-//     const container = containerRef.current;
-//     container.style.position = 'relative';
-//     const labeledFaceDescriptors = await loadLabeledImages();
-//     const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
+  const start = async () => {
+    const container = containerRef.current;
+    container.style.position = 'relative';
+    const labeledFaceDescriptors = await loadLabeledImages();
+    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
 
-//     console.log('Loaded');
-//     imageUploadRef.current.addEventListener('change', async () => {
-//       // Clear the container of any previously appended elements
-//       container.innerHTML = '';
+    console.log('Loaded');
+    imageUploadRef.current.addEventListener('change', async () => {
+      // Clear the container of any previously appended elements
+      container.innerHTML = '';
     
-//       // Create a new image and canvas
-//       const image = await faceapi.bufferToImage(imageUploadRef.current.files[0]);
-//       const canvas = faceapi.createCanvasFromMedia(image);
+      // Create a new image and canvas
+      const image = await faceapi.bufferToImage(imageUploadRef.current.files[0]);
+      const canvas = faceapi.createCanvasFromMedia(image);
     
-//       // Append the image and canvas to the container
-//       container.append(image);
-//       container.append(canvas);
+      // Append the image and canvas to the container
+      container.append(image);
+      container.append(canvas);
     
-//       const displaySize = { width: image.width, height: image.height };
-//       faceapi.matchDimensions(canvas, displaySize);
+      const displaySize = { width: image.width, height: image.height };
+      faceapi.matchDimensions(canvas, displaySize);
     
-//       const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
-//       const resizedDetections = faceapi.resizeResults(detections, displaySize);
-//       const results = resizedDetections.map((d) => faceMatcher.findBestMatch(d.descriptor));
+      const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
+      const resizedDetections = faceapi.resizeResults(detections, displaySize);
+      const results = resizedDetections.map((d) => faceMatcher.findBestMatch(d.descriptor));
     
-//       results.forEach((result, i) => {
-//         const box = resizedDetections[i].detection.box;
-//         const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
-//         drawBox.draw(canvas);
-//       });
-//     });imageUploadRef.current.addEventListener('change', async () => {
-//       const image = await faceapi.bufferToImage(imageUploadRef.current.files[0]);
+      results.forEach((result, i) => {
+        const box = resizedDetections[i].detection.box;
+        const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
+        drawBox.draw(canvas);
+      });
+    });imageUploadRef.current.addEventListener('change', async () => {
+      const image = await faceapi.bufferToImage(imageUploadRef.current.files[0]);
     
-//       // Remove all existing children from the container
-//       container.innerHTML = '';
+      // Remove all existing children from the container
+      container.innerHTML = '';
     
-//       // Create a new image element and append it to the container
-//       image.style.position = 'absolute';
-//       image.style.top = '0';
-//       image.style.left = '0';
-//       image.style.width='600px';
-//       image.style.height='auto'
-//       container.appendChild(image);
+      // Create a new image element and append it to the container
+      image.style.position = 'absolute';
+      image.style.top = '0';
+      image.style.left = '0';
+      image.style.width='600px';
+      image.style.height='auto'
+      container.appendChild(image);
 
-//          // Create a new canvas and append it to the container
-//          const canvas = faceapi.createCanvasFromMedia(image);
-//          canvas.style.position = 'absolute';
-//          canvas.style.top = '0';
-//          canvas.style.left = '0';
-//          container.appendChild(canvas);
+         // Create a new canvas and append it to the container
+         const canvas = faceapi.createCanvasFromMedia(image);
+         canvas.style.position = 'absolute';
+         canvas.style.top = '0';
+         canvas.style.left = '0';
+         container.appendChild(canvas);
     
-//       // Set the display size of the canvas to match the image size
-//       const displaySize = { width: 600, height:image.height };
-//       faceapi.matchDimensions(canvas, displaySize);
+      // Set the display size of the canvas to match the image size
+      const displaySize = { width: 600, height:image.height };
+      faceapi.matchDimensions(canvas, displaySize);
     
-//       // Detect faces and draw face boxes on the canvas
-//       const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
-//       const resizedDetections = faceapi.resizeResults(detections, displaySize);
-//       const results = resizedDetections.map((d) => faceMatcher.findBestMatch(d.descriptor));
+      // Detect faces and draw face boxes on the canvas
+      const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
+      const resizedDetections = faceapi.resizeResults(detections, displaySize);
+      const results = resizedDetections.map((d) => faceMatcher.findBestMatch(d.descriptor));
     
-//       results.forEach((result, i) => {
-//         const box = resizedDetections[i].detection.box;
-//         const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
-//         drawBox.draw(canvas);
-//       });
-//     });
+      results.forEach((result, i) => {
+        const box = resizedDetections[i].detection.box;
+        const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
+        drawBox.draw(canvas);
+      });
+    });
     
     
-//   };  
+  };  
 
 
-const start = async () => {
-   const container = containerRef.current;
-   container.style.position = 'relative';
-   const labeledFaceDescriptors = await loadLabeledImages();
-   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
+// const start = async () => {
+//    const container = containerRef.current;
+//    container.style.position = 'relative';
+//    const labeledFaceDescriptors = await loadLabeledImages();
+//    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
  
-   console.log('Loaded');
-   container.innerHTML = '';
+//    console.log('Loaded');
+//    container.innerHTML = '';
  
-   // Request access to the user's camera
-   const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+//    // Request access to the user's camera
+//    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
  
-   // Create a video element and set its source to the camera stream
-   const video = document.createElement('video');
-   video.srcObject = stream;
-   video.autoplay = true;
+//    // Create a video element and set its source to the camera stream
+//    const video = document.createElement('video');
+//    video.srcObject = stream;
+//    video.autoplay = true;
  
-   // Wait for the video to load
-   await new Promise(resolve => {
-     video.addEventListener('loadeddata', () => {
-       resolve();
-     });
-   });
+//    // Wait for the video to load
+//    await new Promise(resolve => {
+//      video.addEventListener('loadeddata', () => {
+//        resolve();
+//      });
+//    });
  
-   // Create a canvas element and append it to the container
-   const canvas = document.createElement('canvas');
-   container.appendChild(canvas);
+//    // Create a canvas element and append it to the container
+//    const canvas = document.createElement('canvas');
+//    container.appendChild(canvas);
  
-   // Set the canvas dimensions to match the video
-   canvas.width = video.videoWidth;
-   canvas.height = video.videoHeight;
+//    // Set the canvas dimensions to match the video
+//    canvas.width = video.videoWidth;
+//    canvas.height = video.videoHeight;
  
-   // Draw the video frame onto the canvas every animation frame
-   const draw = () => {
-     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-     faceapi.detectAllFaces(canvas).withFaceLandmarks().withFaceDescriptors().then(detections => {
-       const resizedDetections = faceapi.resizeResults(detections, { width: canvas.width, height: canvas.height });
-       const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
+//    // Draw the video frame onto the canvas every animation frame
+//    const draw = () => {
+//      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+//      faceapi.detectAllFaces(canvas).withFaceLandmarks().withFaceDescriptors().then(detections => {
+//        const resizedDetections = faceapi.resizeResults(detections, { width: canvas.width, height: canvas.height });
+//        const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
  
-       results.forEach((result, i) => {
-         const box = resizedDetections[i].detection.box;
-         const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
-         drawBox.draw(canvas);
-       });
-     });
+//        results.forEach((result, i) => {
+//          const box = resizedDetections[i].detection.box;
+//          const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
+//          drawBox.draw(canvas);
+//        });
+//      });
  
-     requestAnimationFrame(draw);
-   };
+//      requestAnimationFrame(draw);
+//    };
  
-   requestAnimationFrame(draw);
- };
+//    requestAnimationFrame(draw);
+//  };
  
 
   const loadLabeledImages = async () => {

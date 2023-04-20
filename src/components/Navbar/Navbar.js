@@ -1,16 +1,20 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./nav.css";
 import { BsPersonCheckFill } from "react-icons/bs";
 import { useRef, useState } from 'react';
 import {  useLocation } from 'react-router-dom';
 
 
-function Navbar({ signOut }) {
+function Navbar() {
 	const location = useLocation().pathname,
 			refNavBar = useRef(),
 			[isOpen, setIsOpen] = useState(false),
          handleToggle = () => setIsOpen(!isOpen);
+         const nevigate=useNavigate()
+         const signOut=()=>{
+          nevigate('/')
+         }
   return (
   <>  
 

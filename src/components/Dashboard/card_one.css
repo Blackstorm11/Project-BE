@@ -19,7 +19,7 @@
 .container1 .box2{
   position: relative;
   justify-content: center;
-  background-color: grey;
+  /* background-color: grey; */
   top: 10%;
   width: 90%;
   margin-left: 5%;

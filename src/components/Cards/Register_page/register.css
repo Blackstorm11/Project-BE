@@ -5,3 +5,16 @@
     padding: 10px;  
     border-radius: 5px;
 }       
+/* .Container{
+    width: 50%;
+    margin-left:40px;
+    background-color: black;
+} */
+
+.space form{
+    display:grid;
+    
+    background-color: aliceblue;
+    margin-top: 10%;
+    
+}

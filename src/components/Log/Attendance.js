@@ -9,7 +9,7 @@ const Attendance=()=>{
  
   const getData = ()=>
   {
-      fetch('')
+      fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(res => setResult( res));
   }
@@ -17,6 +17,10 @@ const Attendance=()=>{
   useEffect(() => {
       getData();
   },)
+
+// Toggle Content
+const[show,setShow]=useState(false)
+
 
 
     return(
@@ -56,65 +60,42 @@ const Attendance=()=>{
           
           <h4>BE</h4>
           
-          <button>Click </button>
+          <button onClick={()=>setShow(!show)}>Click </button>
         </div>
       </div>
-       </div>
+       
+             <br></br>     <br></br> 
                 
                 
                 
+                {/* Toggle Content */}
+{
+  show?<table>
+        <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Student Name</th>
+        <th>Roll No</th>
+        <th>Status</th>
+    </tr>
+        </thead>
+      <tbody>
+          {result.map((res)=>
+             <tr>
+              <td>{res.id}</td>
+              <td>{res.name}</td>
+              <td>{res.phone}</td>
+              <td>{res.username}</td>
+              </tr>
+           )}   
+       </tbody>
+                    
+                  </table>:null
+}
                 
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                {/* Table with generated data 
-                   <table className="table" id="table-to-xls">
-                    <thead className="thead-dark">
-                    <tr>
-                        <th>Date</th>
-                        <th></th>
-                        <th>Student Name</th>
-                        <th>Roll No</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                   
-                         {result.map((res)=>
-                            <tr>
-                            <td>{res.name}</td>
-                            <td>{res.username}</td>
-                            <td>{res.email}</td>
-                            </tr>
-                          )}   
-                       
-                    </tbody>   
-                </table> */}
-
-
-
-
-{/* Button to download csv file */}
-              
-
-
-
-
-
-        
-        
+                </div>    
         </div>
         
         

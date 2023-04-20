@@ -13,43 +13,37 @@ text-align: center;
 .container3 .box4{
 position: relative;
 justify-content: center;
-background-color: grey;
+/* background-color: grey; */
 top: 10%;
 width: 90%;
 margin-left: 5%;
 height:90%;
 }
 
-/* Table */
- table {
+/* A_Table */
+
+.container3 .box4 table {
   text-align: center; 
   width: 100%;
+  height:50%;
+  color: black;
+  background-color:aliceblue;
+  margin-left: auto;
+  margin-right: auto;
 }
-table th {
-  color: white;
+.container3 .box4 table th {
   text-align: center;
-  padding: 25px;
+  padding: 10px;
   font-size: large;
-  border-bottom: 1px solid white;
-  border: 3px solid white;
+  border-color: 3px solid black;
 }
 
-table td {
+.container3 .box4 table td {
   text-align: center;
-  border: 3px solid white;
+  border: 3px solid black;
+
 }
 
-/* Button */
-.btn3{
-  display: inline-block;
-  background-color: black;
-  color: white;
-  border-color: white;
-  font-size: large;
-  border-radius: 5px;
-  padding: 15px;
-  width: 20%;
-}
 
 
 /* Cards */

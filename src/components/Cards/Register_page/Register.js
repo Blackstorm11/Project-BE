@@ -36,37 +36,52 @@ const Register = () => {
   };
 
   return (
+    <div className="box position-absolute top-50 start-50 translate-middle">
+    <div className="card-body" >
     <form onSubmit={handleSubmit}>
+    <div className="label">
       <label>
         Username:
         <input type="text" name="name" onChange={handleChange} />
       </label>
+      <hr></hr>
       <label>
         RollNo:
         <input type="text" name="rollNo" onChange={handleChange} />
       </label>
+      <hr></hr>
       <label>
         UniversityNo:
         <input type="text" name="UniversityNo" onChange={handleChange} />
       </label>
+      <hr></hr>
       <label>
         email:
         <input type="text" name="email" onChange={handleChange} />
       </label>
+      <hr></hr>
       <label>
         Semester:
         <input type="number" name="semester" onChange={handleChange} />
       </label>
+      <hr></hr>
       <label>
         Password:
         <input type="password" name="password" onChange={handleChange} />
       </label>
+      <hr></hr>
       <label>
         Upload:
         <input type="file" name="images" onChange={handleChange} />
       </label>
+      <hr></hr>
       <button type="submit">Submit</button>
+      </div>
     </form>
+    
+    
+    </div>
+    </div>
   );
 };
 

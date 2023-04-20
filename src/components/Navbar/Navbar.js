@@ -47,10 +47,12 @@ function Navbar() {
           </li>
           <hR></hR>
    
+          
           <li>
-          <button onClick={signOut}>Sign Out</button>
-
-					</li>
+            <Link className="nav-link " aria-current="page" to="/">
+              Sign Out
+            </Link>
+          </li>
          
         </ul>
         <h1 className="logo" >

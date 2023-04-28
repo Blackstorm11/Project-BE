@@ -1,7 +1,20 @@
-image{
+/* image{
    position: block;
 }
 canvas{
-   position:block;
+   position:absolute;
    margin-top: auto;
+} */
+/* .space{
+   align-items: center;
+   justify-content: center;
+} */
+.spaceForreco{
+   display:flex;
+   justify-content: center;
+   align-items: center;
+
 }
+   canvas{
+      position: absolute;
+   }

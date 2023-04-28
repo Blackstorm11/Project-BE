@@ -150,6 +150,7 @@ import { Link, useNavigate} from "react-router-dom";
 import ReactDOM from 'react-dom/client';
 import "./timetable.css"
 import Subjects from './data.json'
+import Subjects2 from './data2.json'
 
 function Timetables  ({setSubjectsForCurrentDay}) {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -174,10 +175,32 @@ function Timetables  ({setSubjectsForCurrentDay}) {
  
   const subjectsForCurrentDay = Subjects[0][currentDay];
    console.log(currentDay)
+  const subjectsForCurrentDay2=Subjects2[0][currentDay];
+
 
   //  Toggle Content
   const [show,setShow]=useState(false)
+  const [show1,setShow1]=useState(false)
+  const handleClick1 = () => {
+    if (show) {
+      setShow(false);
+      setShow1(true);
+    } else {
+      setShow1(true);
+      setShow(false);
+    }
+  };
+  const handleClick=()=>{
+    if (show){
+      setShow1(false)
+      setShow(true)
 
+    }else{
+      setShow(true)
+      setShow1(false)
+    }
+  }
+  
 
 
   return (
@@ -193,7 +216,8 @@ function Timetables  ({setSubjectsForCurrentDay}) {
           
           <h4>Semester VII</h4>
           
-          <button>TimeTable</button>
+          {/* <button onClick={()=>setShow1(!show1)}>TimeTable</button> */}
+          <button onClick={handleClick1}>TimeTable</button>
         </div>
 
 
@@ -201,7 +225,8 @@ function Timetables  ({setSubjectsForCurrentDay}) {
           
           <h4>Semester VIII</h4>
           
-              <button onClick={()=>setShow(!show)}> TimeTable</button>  
+              {/* <button onClick={()=>setShow(!show)}> TimeTable</button>   */}
+              <button onClick={handleClick}> TimeTable</button> 
       </div>
 
 
@@ -209,11 +234,11 @@ function Timetables  ({setSubjectsForCurrentDay}) {
           
           <h4>Select a date</h4>
           
-          <button>         <input style={{color: "black"}}
+          <input style={{color: "black"}}
           type="date"
           value={selectedDate.toISOString().substr(0, 10)}
           onChange={(e) => handleDateChange(new Date(e.target.value))}
-        /></button>
+        />
         </div>
      
           
@@ -252,6 +277,24 @@ function Timetables  ({setSubjectsForCurrentDay}) {
             <tr key={timeslot} onClick={handleRowClick}>
               <td>{timeslot}</td>
               <td>{subjectsForCurrentDay[timeslot]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>:null
+} 
+{
+  show1? <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Subject</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(subjectsForCurrentDay2).map((timeslot) => (
+            <tr key={timeslot} onClick={handleRowClick}>
+              <td>{timeslot}</td>
+              <td>{subjectsForCurrentDay2[timeslot]}</td>
             </tr>
           ))}
         </tbody>

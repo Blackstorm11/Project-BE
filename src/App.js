@@ -16,6 +16,7 @@ import FaceRecognition from "./components/faceRecognition/recognition";
 import useUser from "./hooks/useUser";
 import Header from "./components/Header";
 import Login from "./components/Cards/Login/Login";
+import FApp from "./components/faceRecognition/switchCam";
 
 function App() {
   // const user = useUser();
@@ -46,6 +47,7 @@ function App() {
           <Route path="/time_table" element={<Timetable_log />} />
           <Route path="/attendance_log" element={<Attendance_log />} />
           <Route path="/face" element={<FaceRecognition />} />
+          <Route path="secondFace" element={<FApp/>}/>
         </Routes>
       
     </>

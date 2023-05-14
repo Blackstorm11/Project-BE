@@ -1,10 +1,13 @@
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import "./register.css";
 
 const Register = () => {
+  const nevigate=useNavigate()
+
+ 
   const [formData, setFormData] = useState({
     name: "",
     password: "",
@@ -28,6 +31,7 @@ const Register = () => {
     axios
       .post("http://localhost:3001/track/add_user", formData)
       .then((response) => {
+        nevigate('/dashboard')
         console.log(response);
       })
       .catch((error) => {
@@ -38,46 +42,41 @@ const Register = () => {
   return (
     <div className="box position-absolute top-50 start-50 translate-middle">
     <div className="card-body" >
-    <form onSubmit={handleSubmit}>
-    <div className="label">
-      <label>
-        Username:
-        <input type="text" name="name" onChange={handleChange} />
-      </label>
-      <hr></hr>
-      <label>
-        RollNo:
-        <input type="text" name="rollNo" onChange={handleChange} />
-      </label>
-      <hr></hr>
-      <label>
-        UniversityNo:
-        <input type="text" name="UniversityNo" onChange={handleChange} />
-      </label>
-      <hr></hr>
-      <label>
-        email:
-        <input type="text" name="email" onChange={handleChange} />
-      </label>
-      <hr></hr>
-      <label>
-        Semester:
-        <input type="number" name="semester" onChange={handleChange} />
-      </label>
-      <hr></hr>
-      <label>
-        Password:
-        <input type="password" name="password" onChange={handleChange} />
-      </label>
-      <hr></hr>
-      <label>
-        Upload:
-        <input type="file" name="images" onChange={handleChange} />
-      </label>
-      <hr></hr>
-      <button type="submit">Submit</button>
-      </div>
-    </form>
+    <form onSubmit={handleSubmit} class="registration-form">
+  <div class="form-group">
+    <label for="Username">Username:</label>
+    <input type="text" id="Username" placeholder="Enter your name" name="name" onChange={handleChange}/>
+  </div>
+  <div class="form-group">
+    <label for="Roll NO">Roll NO:</label>
+    <input type="text" id="Roll NO"  placeholder="Enter your RollNo" name="rollNo" onChange={handleChange}/>
+  </div>
+  <div class="form-group">
+    <label for="UniversityNo">UniversityNo</label>
+    <input type="text" id="UniversityNo"  placeholder="Enter your UniversityNo" name="UniversityNo" onChange={handleChange} />
+  </div>
+  <div class="form-group">
+    <label for="Email">Email</label>
+    <input type="Email" id="Email" placeholder="Enter your Email" name="email" onChange={handleChange} />
+  </div>
+  <div class="form-group">
+    <label for="Semester">Semester</label>
+    <input type="text" id="Semester"  placeholder="Confirm your Semester" name="semester" onChange={handleChange} />
+  </div>
+  <div class="form-group">
+    <label for="Password">Password:</label>
+    <input type="Password" id="Password"  placeholder="Confirm your Password" name="Password" onChange={handleChange} />
+  </div>
+  <div class="form-group">
+    <label for="Semester">Upload:</label>
+    <input type="file" id="Semester"  name="images" onChange={handleChange} />
+  </div>
+     
+  <div class="form-group">
+    <button type="submit">Register</button>
+  </div>
+</form>
+
     
     
     </div>

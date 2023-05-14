@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import ReactDOM from 'react-dom/client';
 import "./card_one.css"
 
 const Card_one = () => {
   const [value, onChange] = useState(new Date());
 
-
+    const nevigate=useNavigate()
+    const handleClick=()=>{
+          nevigate('/face')
+    }
 
   return (
 
@@ -51,7 +54,7 @@ const Card_one = () => {
         </div>
       </div>
 
-        <br></br>
+        <br></br><label className='button' onClick={handleClick}>faceRecognition</label>
 
 
 

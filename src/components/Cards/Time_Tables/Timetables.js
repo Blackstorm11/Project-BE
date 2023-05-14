@@ -197,7 +197,8 @@ function Timetables  ({setSubjectsForCurrentDay}) {
 
     }else{
       setShow(true)
-      setShow1(false)
+      setShow1(false
+        )
     }
   }
   

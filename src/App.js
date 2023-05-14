@@ -47,7 +47,7 @@ function App() {
           <Route path="/time_table" element={<Timetable_log />} />
           <Route path="/attendance_log" element={<Attendance_log />} />
           <Route path="/face" element={<FaceRecognition />} />
-          <Route path="secondFace" element={<FApp/>}/>
+          <Route path="/secondFace" element={<FApp/>}/>
         </Routes>
       
     </>

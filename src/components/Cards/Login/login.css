@@ -2,7 +2,11 @@
   margin-left: -25px;
   margin-bottom: 5px;
 }
-
+.register{
+  padding-left: 1rem;
+  font-size: large;
+  
+}
 #pass {
   display: flex;
   flex-direction: row;

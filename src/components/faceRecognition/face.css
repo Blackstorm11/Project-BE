@@ -18,3 +18,8 @@ canvas{
    canvas{
       position: absolute;
    }
+
+.recognition:hover {
+   background-color: aquamarine;
+   color: aliceblue;
+}

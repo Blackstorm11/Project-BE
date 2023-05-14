@@ -29,7 +29,10 @@ module.exports = {
   },
   resolve: {
    fallback: {
-     http: require.resolve('stream-http')
-   }
+      "http": false,
+      "https": false,
+      "dgram": false,
+      "crypto": false
  }
-};
+}
+}

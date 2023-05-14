@@ -8,6 +8,9 @@ import "./login.css";
 
 const Login = () => {
   let navigate = useNavigate();
+  const Registration=()=>{
+    navigate('/register')
+  }
   function hoverOut() {
     var p = document.getElementById("pwd");
     p.setAttribute("type", "password");
@@ -51,7 +54,7 @@ const loginApp =async(e)=> {
   
   }catch(error){
     if(error.response.status== 401) console.warn(error.response.data.message);
-
+    toast.error("Unauthorized")
   }
 };
 
@@ -134,6 +137,10 @@ const loginApp =async(e)=> {
               <button type="submit" onClick={loginApp} className="btn btn-primary">
                 Login
               </button>
+  
+              <span className="register" type="submit" onClick={Registration}>
+                Register
+              </span>
             </div>
           </div>
         </form>

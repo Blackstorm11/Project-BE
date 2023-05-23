@@ -33,12 +33,7 @@ function Navbar() {
               Home
             </Link>
           </li>
-          <hR></hR>
-          <li>
-            <NavLink aria-current="page" to="/register">
-              Register
-            </NavLink>
-          </li>
+         
           <hR></hR>
           <li>
             <Link className="nav-link " aria-current="page" to="/attendance_log">

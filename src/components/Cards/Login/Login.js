@@ -94,7 +94,7 @@ const loginApp =async(e)=> {
              <center> <label id="login">Login</label></center>
             </div>
             <div className="form-group mt-3">
-              <label>Email</label>
+              <label >Email</label>
               <input
                 type="email"
                 className="form-control mt-1"
@@ -105,7 +105,7 @@ const loginApp =async(e)=> {
               />
             </div>
             <div className="form-group mt-3">
-              <label>Password</label>
+              <label >Password</label>
               <div id="pass">
                 <input
                   type="password"

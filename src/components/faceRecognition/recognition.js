@@ -43,176 +43,89 @@ function FaceRecognition() {
     }
   }
 
+  // async function getLabeledFaceDescriptions() {
+  //   // const labels = ['hrithik_kantak','lachlan_disilva','omkar_redkar','prajakta_kolambkar'];
+  //   const response = await fetch('http://localhost:3001/track/names', {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     const labels = await response.json();
+  //     // Now you can use the labels array in your code
+  //     console.log(labels);
+  //   } else {
+  //     console.error('Failed to fetch names:', response.status);
+  //   }
+
+  //   const data = await response.json();
+  //   const labels = data.labels;
+  //   return Promise.all(
+  //     labels.map(async (label) => {
+  //       const descriptions = [];
+  //       for (let i = 1; i <= 2; i++) {
+  //         const img = await faceapi.fetchImage(`/labeled_images/${label}/${i}.jpg`);
+  //         const detections = await faceapi
+  //           .detectSingleFace(img)
+  //           .withFaceLandmarks()
+  //           .withFaceDescriptor();
+  //         descriptions.push(detections.descriptor);
+  //       }
+  //       return new faceapi.LabeledFaceDescriptors(label, descriptions);
+  //     })
+  //   );
+  // }
+
   async function getLabeledFaceDescriptions() {
-    const labels = ['hrithik_kantak','lachlan_disilva','omkar_redkar','prajakta_kolambkar'];
-    return Promise.all(
-      labels.map(async (label) => {
-        const descriptions = [];
-        for (let i = 1; i <= 2; i++) {
-          const img = await faceapi.fetchImage(`/labeled_images/${label}/${i}.jpg`);
-          const detections = await faceapi
-            .detectSingleFace(img)
-            .withFaceLandmarks()
-            .withFaceDescriptor();
-          descriptions.push(detections.descriptor);
-        }
-        return new faceapi.LabeledFaceDescriptors(label, descriptions);
-      })
-    );
+    const response = await fetch('http://localhost:3001/track/rollNo', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  
+    if (response.ok) {
+      const labels = await response.json();
+      // Now you can use the labels array in your code
+      console.log(labels);
+  
+      return Promise.all(
+        labels.map(async (label) => {
+          const descriptions = [];
+          for (let i = 1; i <= 2; i++) {
+            const img = await faceapi.fetchImage(`/labeled_images/${label}/${i}.jpg`);
+            const detections = await faceapi
+              .detectSingleFace(img)
+              .withFaceLandmarks()
+              .withFaceDescriptor();
+            descriptions.push(detections.descriptor);
+          }
+          return new faceapi.LabeledFaceDescriptors(label, descriptions);
+        })
+      );
+    } else {
+      console.error('Failed to fetch names:', response.status);
+    }
   }
+  
   const [isLoading, setIsLoading] = useState(false);
   const handleClick = async () => {
     setIsLoading(true);
     
     await faceRecognition();
+
     setIsLoading(false);
   };
 
+
+
+
   const recognizedPersons = [];
 
-  // async function faceRecognition() {
-  //   const labeledFaceDescriptors = await getLabeledFaceDescriptions();
-  //   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
-  //   const threshold = 0.5;
-  //   const recognizedPersons = [];
-  
-  //   videoRef.current.addEventListener("play", () => {
-  //     const canvas = faceapi.createCanvasFromMedia(videoRef.current);
-  //     document.body.append(canvas);
-  //   });
-  
-  //   const displaySize = {
-  //     width: videoRef.current.videoWidth,
-  //     height: videoRef.current.videoHeight,
-  //   };
-  
-  //   faceapi.matchDimensions(canvasRef.current, displaySize);
-  
-  //   let bestMatchLabel = null;
-  
-  //   setInterval(async () => {
-  //     const detections = await faceapi
-  //       .detectAllFaces(videoRef.current)
-  //       .withFaceLandmarks()
-  //       .withFaceDescriptors();
-  
-  //     const resizedDetections = faceapi.resizeResults(detections, displaySize);
-  
-  //     canvasRef.current.getContext("2d").clearRect(
-  //       0,
-  //       0,
-  //       canvasRef.current.width,
-  //       canvasRef.current.height
-  //     );
-  
-  //     const results = resizedDetections.map((d) => {
-  //       return faceMatcher.findBestMatch(d.descriptor);
-  //     });
-  
-  //     const bestMatchLabels = results.map((result) => {
-  //       return result.label;
-  //     });
-  
-      
-  //     // else if (bestMatchLabel) {
-  //     //   const bestMatchDiv = document.createElement("div");
-  //     //   bestMatchDiv.textContent = `Best match: ${bestMatchLabel}`;
-  //     //   document.body.append(bestMatchDiv);
-  //     // }
-  
-  //     results.forEach((result, i) => {
-  //       const box = resizedDetections[i].detection.box;
-  //       const drawBox = new faceapi.draw.DrawBox(box, {
-  //         label: result.toString().split(" ")[0],
-  //       });
-  //       drawBox.draw(canvasRef.current);
-  
-  //       if (result.distance > threshold) {
-  //         bestMatchLabel = result.label;
-  //       }
-  //     });
-  //   }, 100);
-  
-   
-  // }  
 
-  // async function faceRecognition() {
-  //   const labeledFaceDescriptors = await getLabeledFaceDescriptions();
-  //   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
-  //   const threshold = 0.2;
-  //   const recognizedPersons = [];
-  
-  //   const displaySize = {
-  //     width: videoRef.current.videoWidth,
-  //     height: videoRef.current.videoHeight,
-  //   };
-  
-  //   faceapi.matchDimensions(canvasRef.current, displaySize);
-  
-  //   let bestMatchLabel = null;
-  
-  //   setInterval(async () => {
-  //     const detections = await faceapi
-  //       .detectAllFaces(videoRef.current)
-  //       .withFaceLandmarks()
-  //       .withFaceDescriptors();
-  
-  //     const resizedDetections = faceapi.resizeResults(detections, displaySize);
-  
-  //     canvasRef.current.getContext("2d").clearRect(
-  //       0,
-  //       0,
-  //       canvasRef.current.width,
-  //       canvasRef.current.height
-  //     );
-  
-  //     const results = resizedDetections.map((d) => {
-  //       return faceMatcher.findBestMatch(d.descriptor);
-  //     });
-  
-  //     const bestMatchLabels = results.map((result) => {
-  //       return result.label;
-  //     });
-  
-  //     results.forEach((result, i) => {
-  //       const box = resizedDetections[i].detection.box;
-  //       const drawBox = new faceapi.draw.DrawBox(box, {
-  //         label: result.toString().split(" ")[0],
-  //       });
-  //       drawBox.draw(canvasRef.current);
-       
-  //       if (result.distance > threshold) {
-  //         bestMatchLabel = result.label;
-  //         if (!recognizedPersons.includes(bestMatchLabel)) {
-  //           recognizedPersons.push(bestMatchLabel);
-  //         }
-  //       }
-        
-  //     });
-  //   }, 500
-  //   );
-  //  console.log(recognizedPersons)
-  //   // Send the recognizedPersons array to the backend
-  //   if (recognizedPersons) {
-  //     fetch("http://localhost:3001/attendanceLog/logs", {
-  //       method: "POST",
-  //       body: JSON.stringify({ person: recognizedPersons }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Authorization": `Bearer ${localStorage.getItem("token")}`
-  //       },
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log("Recognition result:", data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error sending recognition data:", error);
-  //       });
-  //   } else {
-  //     console.error("Recognized persons is null.");
-  //   }
-    
   async function faceRecognition() {
     const labeledFaceDescriptors = await getLabeledFaceDescriptions();
     const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);

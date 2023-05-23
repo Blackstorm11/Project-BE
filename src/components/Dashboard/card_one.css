@@ -41,14 +41,6 @@ margin-right: 30px;
 }
 
 
-
-/* TEST TIME TABLE CSS */
-
-
-
-
-
-
 /* time table cards */
 .users{
   display: flex;
@@ -101,38 +93,58 @@ margin-right: 30px;
 }
 
 
-/* Time Table */
-
-
-
-
-
-/*
-table {
-height: 50%;
-color:white;
-background-color: black;
-border-color: white;
+/* Table  */
+.container1 .box2 table {
+  text-align: center; 
+  width: 100%;
+  height:50%;
+  
+  color: black;
+  background-color:aliceblue;
+  margin-left: auto;
+  margin-right: auto;
 }
-table .table-row{
+.container1 .box2 table th {
+  text-align: center;
+  color: white;
+  padding: 10px;
+  font-size: large;
+  background-color: black;
+  border-color: 3px solid black;
+}
+
+.container1 .box2 table td {
+  text-align: center;
+  border: 3px solid black;
 
 }
-table button{
-width: 50%;
-margin-top: 2px;
-color: black;  
-cursor: pointer;
-background: transparent;
-border: 2px solid black;
+
+
+
+/* below cards */
+.container1 .box2 .split1{
+  width: 100%;
+  margin: -10px;
+  /* background-color: black; */
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  
 }
-*/
-.button{
-  padding:20px;
-  border-radius: 2px;
-  border-style: inset;
-  background-color: rgb(210, 7, 7);
+.container1 .box2 .split1 .card p{
+  color: #00836a;
+  font-weight: bold;
+  font-size: larger;
 }
-.button:hover{
-  color: #fff;
-  background-color: rgb(249, 119, 49);
+.container1 .box2 .st_names{
+  width: 100%;
+  height: 60%;
+ 
+  background-color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
+
+/* Tbales details of student and teachers */

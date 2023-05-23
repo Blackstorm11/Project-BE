@@ -1,10 +1,29 @@
 import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState,useRef } from "react";
 import "./register.css";
+import { toast } from "react-toastify";
 
 const Register = () => {
+
+ 
+ 
+
+  const handleSubmit=(event)=>{
+    event.preventDefault()
+  
+    axios.post("http://localhost:3001/track/add_user", formData)
+    .then((response) => {
+      nevigate('/dashboard')
+      console.log(response);
+      toast.success('user Registered')
+    })
+  
+    .catch((error) => {
+      console.log(error);
+    });
+  }
   const nevigate=useNavigate()
 
  
@@ -26,18 +45,8 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios
-      .post("http://localhost:3001/track/add_user", formData)
-      .then((response) => {
-        nevigate('/dashboard')
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
+
 
   return (
     <div className="box position-absolute top-50 start-50 translate-middle">
@@ -65,14 +74,15 @@ const Register = () => {
   </div>
   <div class="form-group">
     <label for="Password">Password:</label>
-    <input type="Password" id="Password"  placeholder="Confirm your Password" name="Password" onChange={handleChange} />
+    <input type="text" id="Password"  placeholder="Confirm your Password" name="Password" onChange={handleChange} />
   </div>
   <div class="form-group">
     <label for="Semester">Upload:</label>
-    <input type="file" id="Semester"  name="images" onChange={handleChange} />
+    <input type="file" id="Semester"  name="images" onChange={handleChange} multiple/>
   </div>
-     
-  <div class="form-group">
+  
+
+  <div class="form-group abs">
     <button type="submit">Register</button>
   </div>
 </form>

@@ -4,6 +4,7 @@
     height: auto;
     padding: 10px;  
     border-radius: 5px;
+    
 }       
 /* .Container{
     width: 50%;
@@ -40,7 +41,7 @@
     margin-bottom: 5px;
   }
   
-  input[type="text"],
+ input[type="text"],
   input[type="email"],
   input[type="password"] {
     padding: 10px;
@@ -63,4 +64,16 @@
   button[type="submit"]:hover {
     background-color: #006080;
   }
+  .dropzone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+  }
   
+  .dropzone p {
+    margin-bottom: 10px;
+  }
+  
+  .dropzone div {
+    margin-bottom: 5px;
+  }

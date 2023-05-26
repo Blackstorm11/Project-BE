@@ -1,136 +1,78 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
-// import onvif from "node-onvif";
 import './face.css'
 
 function FaceRecognition() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-
   useEffect(() => {
     Promise.all([
       faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
+      faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
       faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-      faceapi.nets.faceLandmark68Net.loadFromUri("/models")
     ])
       .then(startWebcam)
-      // .then(faceRecognition)
       .catch((error) => console.error(error));
 
     return () => {
-      // Stop the webcam stream when the component unmounts
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject;
-        const tracks = stream.getTracks();
-        tracks.forEach((track) => track.stop());  
-        videoRef.current.srcObject = null;
-      }
+      stopWebcam();
     };
   }, []);
 
-
-  async function startWebcam() {
-    
+  const startWebcam = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        audio: false
+        audio: false,
       });
       videoRef.current.srcObject = stream;
     } catch (error) {
       console.error(error);
     }
-  }
-
-  // async function getLabeledFaceDescriptions() {
-  //   // const labels = ['hrithik_kantak','lachlan_disilva','omkar_redkar','prajakta_kolambkar'];
-  //   const response = await fetch('http://localhost:3001/track/names', {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     },
-  //   });
-  //   if (response.ok) {
-  //     const labels = await response.json();
-  //     // Now you can use the labels array in your code
-  //     console.log(labels);
-  //   } else {
-  //     console.error('Failed to fetch names:', response.status);
-  //   }
-
-  //   const data = await response.json();
-  //   const labels = data.labels;
-  //   return Promise.all(
-  //     labels.map(async (label) => {
-  //       const descriptions = [];
-  //       for (let i = 1; i <= 2; i++) {
-  //         const img = await faceapi.fetchImage(`/labeled_images/${label}/${i}.jpg`);
-  //         const detections = await faceapi
-  //           .detectSingleFace(img)
-  //           .withFaceLandmarks()
-  //           .withFaceDescriptor();
-  //         descriptions.push(detections.descriptor);
-  //       }
-  //       return new faceapi.LabeledFaceDescriptors(label, descriptions);
-  //     })
-  //   );
-  // }
-
-  async function getLabeledFaceDescriptions() {
-    const response = await fetch('http://localhost:3001/track/rollNo', {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-  
-    if (response.ok) {
-      const labels = await response.json();
-      // Now you can use the labels array in your code
-      console.log(labels);
-  
-      return Promise.all(
-        labels.map(async (label) => {
-          const descriptions = [];
-          for (let i = 1; i <= 2; i++) {
-            const img = await faceapi.fetchImage(`/labeled_images/${label}/${i}.jpg`);
-            const detections = await faceapi
-              .detectSingleFace(img)
-              .withFaceLandmarks()
-              .withFaceDescriptor();
-            descriptions.push(detections.descriptor);
-          }
-          return new faceapi.LabeledFaceDescriptors(label, descriptions);
-        })
-      );
-    } else {
-      console.error('Failed to fetch names:', response.status);
-    }
-  }
-  
-  const [isLoading, setIsLoading] = useState(false);
-  const handleClick = async () => {
-    setIsLoading(true);
-    
-    await faceRecognition();
-
-    setIsLoading(false);
   };
 
+  const stopWebcam = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  };
 
-
-
-  const recognizedPersons = [];
-
-
-  async function faceRecognition() {
+  const trainFaceRecognition = async () => {
     const labeledFaceDescriptors = await getLabeledFaceDescriptions();
-    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
-    const threshold = 0.2;
-    const recognizedPersons = [];
+    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.5);
+
+    return faceMatcher;
+  };
+
+  const getLabeledFaceDescriptions = async () => {
+    const labels = [
+      'c19-01', 'c19-02', 'c19-04', 'c19-05', 'c19-07', 'c19-10',
+      'c19-11', 'c19-12', 'c19-28', 'c19-29', 'c19-33', 
+      'dc20-43', 'dc20-47', 'dc20-52'
+    ];
+
+    return Promise.all(
+      labels.map(async (label) => {
+        const descriptions = [];
+        for (let i = 1; i <= 2; i++) {
+          const img = await faceapi.fetchImage(`/labeled_images/${label}/${i}.jpg`);
+          const detections = await faceapi
+            .detectSingleFace(img)
+            .withFaceLandmarks()
+            .withFaceDescriptor();
+          descriptions.push(detections.descriptor);
+        }
+        return new faceapi.LabeledFaceDescriptors(label, descriptions);
+      })
+    );
+  };
+
+  const handleRecognizeFaces = async () => {
+    const faceMatcher = await trainFaceRecognition();
   
     const displaySize = {
       width: videoRef.current.videoWidth,
@@ -139,11 +81,8 @@ function FaceRecognition() {
   
     faceapi.matchDimensions(canvasRef.current, displaySize);
   
-    let bestMatchLabel = null;
-  
-    const startTime = new Date().getTime();
-    const endTime = startTime + 2 * 60 * 1000; // 2 minutes
-  
+    const recognizedLabels = []; // Array to store recognized labels
+    const final_labels=[];
     const intervalId = setInterval(async () => {
       const detections = await faceapi
         .detectAllFaces(videoRef.current)
@@ -170,86 +109,35 @@ function FaceRecognition() {
         });
         drawBox.draw(canvasRef.current);
   
-        if (result.distance > threshold) {
-          bestMatchLabel = result.label;
-          if (!recognizedPersons.includes(bestMatchLabel)) {
-            recognizedPersons.push(bestMatchLabel);
+        if (result.distance <= 0.55) { // Add recognized label to the array if the distance is below or equal to the threshold
+          recognizedLabels.push(result.toString().split(" ")[0]);
+
+          const count = recognizedLabels.filter((label) => label === result.toString().split(" ")[0]).length;
+          if (count > 40 && !final_labels.includes(result.toString().split(" ")[0])) {
+            final_labels.push(result.toString().split(" ")[0]);
           }
         }
+        
       });
-  
-      const currentTime = new Date().getTime();
-      if (currentTime > endTime) {
-        clearInterval(intervalId);
-  
-        console.log(recognizedPersons);
-        // Send the recognizedPersons array to the backend
-      //   if (recognizedPersons.length > 0) {
-      //     fetch("http://localhost:3001/attendanceLog/logs", {
-      //       method: "POST",
-      //       body: JSON.stringify({ person: recognizedPersons }),
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //       },
-      //     })
-      //       .then((response) => response.json())
-      //       .then((data) => {
-      //         console.log("Recognition result:", data);
-      //       })
-      //       .catch((error) => {
-      //         console.error("Error sending recognition data:", error);
-      //       });
-      //   } else {
-      //     console.error("No recognized persons found.");
-      //   }
-      // }
-      if (recognizedPersons.length > 0) {
-        recognizedPersons.forEach(person => {
-          fetch("http://localhost:3001/attendanceLog/logs", {
-            method: "POST",
-            body: JSON.stringify({ person: [person] }), // Send the person in an array
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(`Recognition result for ${person}:`, data);
-          })
-          .catch((error) => {
-            console.error(`Error sending recognition data for ${person}:`, error);
-          });
-        });
-      } else {
-        console.error("No recognized persons found.");
-      }
-    }
     }, 500);
-  }
-  
     
-
+    setTimeout(() => {
+      clearInterval(intervalId);
+      stopWebcam();
+      console.log(recognizedLabels); // Output the recognized labels to the console
+      console.log(final_labels)
+    }, 60 * 1000); // Stop after 2 minutes
+  };
   
-  
-
-
-
-
-
   return (
     <>
-    {/* <button onClick={switchCamera}>switch</button> */}
-        <div className="spaceForreco">
-      <video ref={videoRef} autoPlay muted />
-      <canvas ref={canvasRef} />
+      <div className="spaceForreco">
+        <video ref={videoRef} autoPlay muted />
+        <canvas ref={canvasRef} />
       </div>
       <div>
-      <button onClick={handleClick}>
-        {isLoading ? "Loading...." : "Recognize"}
-      </button>
-    </div>
+        <button onClick={handleRecognizeFaces}>Recognize</button>
+      </div>
     </>
   );
 }

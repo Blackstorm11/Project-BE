@@ -17,6 +17,7 @@ import useUser from "./hooks/useUser";
 import Header from "./components/Header";
 import Login from "./components/Cards/Login/Login";
 import FApp from "./components/faceRecognition/switchCam";
+import { FinalLabelsProvider } from "./components/faceRecognition/finallabelContext"
 
 function App() {
   // const user = useUser();
@@ -34,7 +35,8 @@ function App() {
 				
 				: */}
         <ToastContainer autoClose={3000} position={"top-left"}/>
-        <Routes>
+        <FinalLabelsProvider>
+        <Routes> 
         <Route path="/" exact element={<Adminlogin />} />
           {/* <Route path="/add" element={<Adduser />} /> */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -45,11 +47,13 @@ function App() {
   
           <Route path="/register" element={<Register />} />
           <Route path="/time_table" element={<Timetable_log />} />
+          
           <Route path="/attendance_log" element={<Attendance_log />} />
           <Route path="/face" element={<FaceRecognition />} />
-          <Route path="/secondFace" element={<FApp/>}/>
+         
+          <Route path="/secondFace" element={<FApp/>}/> 
         </Routes>
-      
+        </FinalLabelsProvider>
     </>
   );
 }

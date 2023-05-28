@@ -1,10 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useContext } from "react";
 import * as faceapi from "face-api.js";
 import './face.css'
+import { ResponsiveCalendar } from "react-responsive-calendar";
+import { FinalLabelsContext } from "./finallabelContext"
+import { useNavigate } from "react-router-dom";
 
 function FaceRecognition() {
+  const nevigate=useNavigate();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const { setFinalLabels } = useContext(FinalLabelsContext);
 
   useEffect(() => {
     Promise.all([
@@ -49,11 +54,21 @@ function FaceRecognition() {
   };
 
   const getLabeledFaceDescriptions = async () => {
-    const labels = [
-      'c19-01', 'c19-02', 'c19-04', 'c19-05', 'c19-07', 'c19-10',
-      'c19-11', 'c19-12', 'c19-28', 'c19-29', 'c19-33', 
-      'dc20-43', 'dc20-47', 'dc20-52'
-    ];
+    // const labels = [
+    //   'c19-01', 'c19-02', 'c19-04', 'c19-05', 'c19-07', 'c19-10',
+    //   'c19-11', 'c19-12', 'c19-28', 'c19-29', 'c19-33', 
+    //   'dc20-43', 'dc20-47', 'dc20-52'
+    // ];
+    const response=await fetch('http://localhost:3001/track/rollNo',{
+      method:"GET",
+      headers:{
+        "content-type":"application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    });
+    if(response.ok){
+      const labels=await response.json()
+    
 
     return Promise.all(
       labels.map(async (label) => {
@@ -68,7 +83,10 @@ function FaceRecognition() {
         }
         return new faceapi.LabeledFaceDescriptors(label, descriptions);
       })
-    );
+    );}
+    else {
+          console.error('Failed to fetch names:', response.status);
+        }
   };
 
   const handleRecognizeFaces = async () => {
@@ -121,13 +139,72 @@ function FaceRecognition() {
       });
     }, 500);
     
+    const sendLabelsToOneByOne = async (persons) => {
+     console.log(sendLabelsToOneByOne)
+        if (persons && persons.length > 0) {
+          for (let i = 0; i < persons.length; i++) {
+            
+        const person = persons[i];
+        try {
+          const currentTime = new Date(); // Fetch the current date and time
+
+// Format the current time as a human-readable string
+const formattedDateTime = currentTime.toLocaleString("en-US", {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
+});
+         
+          // Create the data object with the label and other data
+          const data = {
+            person: person,
+            created_at:currentTime
+            // Add any additional data you want to include
+          };
+          console.log(data)
+          // Make the API request to the endpoint with the data
+          const response = await fetch("http://localhost:3001/attendanceLog/logs", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({person:person,created_at:formattedDateTime}),
+          });
+    
+          // Handle the response from the API request
+          if (response.ok) {
+            // Request succeeded
+            const responseData = await response.json();
+            // Process the response data if needed
+            console.log("Request succeeded:", responseData);
+          } else {
+            // Request failed
+            console.log("Request failed:", response.status, response.statusText);
+          }
+        } catch (error) {
+          console.error("Error sending label:", error);
+        }
+      }}
+    };
+    
+    // Usage in handleRecognizeFaces function
     setTimeout(() => {
       clearInterval(intervalId);
       stopWebcam();
       console.log(recognizedLabels); // Output the recognized labels to the console
-      console.log(final_labels)
+      console.log(final_labels);
+      setFinalLabels(final_labels);
+      // Send final_labels to endpoint one by one
+      sendLabelsToOneByOne(final_labels);
+      nevigate('/attendance_log')
     }, 60 * 1000); // Stop after 2 minutes
   };
+  
   
   return (
     <>

@@ -18,6 +18,8 @@ import Header from "./components/Header";
 import Login from "./components/Cards/Login/Login";
 import FApp from "./components/faceRecognition/switchCam";
 import { FinalLabelsProvider } from "./components/faceRecognition/finallabelContext"
+import Upload from "./components/Cards/Register_page/upload";
+import {FinalSubjectProvider} from "./components/faceRecognition/finalSubjectContext"
 
 function App() {
   // const user = useUser();
@@ -36,6 +38,7 @@ function App() {
 				: */}
         <ToastContainer autoClose={3000} position={"top-left"}/>
         <FinalLabelsProvider>
+        <FinalSubjectProvider>
         <Routes> 
         <Route path="/" exact element={<Adminlogin />} />
           {/* <Route path="/add" element={<Adduser />} /> */}
@@ -52,7 +55,9 @@ function App() {
           <Route path="/face" element={<FaceRecognition />} />
          
           <Route path="/secondFace" element={<FApp/>}/> 
+          <Route path="/upload" element={<Upload/>}/>
         </Routes>
+        </FinalSubjectProvider>
         </FinalLabelsProvider>
     </>
   );

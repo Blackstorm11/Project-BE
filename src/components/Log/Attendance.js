@@ -1,12 +1,29 @@
 import React, { useState, useEffect ,useContext} from "react";
 import "./attendance_log.css";
 import { FinalLabelsContext } from "../faceRecognition/finallabelContext";
+import { FinalSubjectContext } from "../faceRecognition/finalSubjectContext";
 
 const Attendance = () => {
   const [results, setResult] = useState([]);
-  const [fetchDateTime, setFetchDateTime] = useState(null);
+  const [formattedDateTime, setFormattedDateTime] = useState(null);
   const { finalLabels } = useContext(FinalLabelsContext);
+  const {scheduledSubject}=useContext(FinalSubjectContext)
+  console.log(scheduledSubject)
   console.log(finalLabels)
+  useEffect(() => {
+    const currentTime = new Date();
+    const formattedDateTime = currentTime.toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    });
+    setFormattedDateTime(formattedDateTime);
+    getData(formattedDateTime);
+  }, [formattedDateTime]);
   const getData = () => {
     const fetchRollNo = fetch("http://localhost:3001/track/all", {
       method: "GET",
@@ -16,8 +33,8 @@ const Attendance = () => {
       },
     }).then((response) => response.json());
     
-    const currentDateTime = new Date(); // Fetch the current date and time
-    setFetchDateTime(currentDateTime);
+  
+  
 
     const fetchAttendanceLog = fetch("http://localhost:3001/attendanceLog", {
       method: "GET",
@@ -27,7 +44,7 @@ const Attendance = () => {
       },
     }).then((response) => response.json());
   
-    Promise.all([fetchRollNo, fetchAttendanceLog,finalLabels])
+    Promise.all([fetchRollNo, fetchAttendanceLog,finalLabels,scheduledSubject])
     .then(([res1, res2,res3]) => {
       // Extract the rollNo values from res1
       const rollNoArray = res1.map((item) => item.rollNo);
@@ -42,7 +59,44 @@ const Attendance = () => {
         
       }));
       console.log(results)
-  
+      if (finalLabels !== null && finalLabels.length !== 0) {
+      const sendResults = async (results) => {
+        try {
+          for (const { rollNo, result } of results) {
+            const data = {
+              person: rollNo,
+              Status: result,
+              created_at:formattedDateTime,
+              subject:scheduledSubject
+            };
+      
+            const response = await fetch("http://localhost:3001/attendanceLog/logs", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify(data)
+            });
+      
+            if (response.ok) {
+              // Request succeeded
+              const responseData = await response.json();
+              // Process the response data if needed
+              console.log("Request succeeded:", responseData);
+            } else {
+              // Request failed
+              console.log("Request failed:", response.status, response.statusText);
+            }
+          }
+        } catch (error) {
+          console.error("Error sending results:", error);
+        }
+      };
+      
+      // Usage
+      sendResults(results);
+    }
       setResult({ rollNoData: res1, attendanceLogData: res2, results });
     })
     .catch((error) => console.error("Error fetching data:", error));
@@ -131,7 +185,7 @@ const Attendance = () => {
     <td>{index + 1}</td>
     <td>{data.rollNo}</td>
     <td>{results.results[index].result}</td>
-    <td>{fetchDateTime.toLocaleString()}</td> {/* Display fetch date and time */}
+    <td>{formattedDateTime}</td> {/* Display fetch date and time */}
   </tr>
 ))}
 

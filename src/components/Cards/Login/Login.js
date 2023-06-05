@@ -4,6 +4,7 @@ import { Link, useNavigate} from "react-router-dom";
 import { toast } from "react-toastify";
 import login from "../../../assets/login.gif";
 import "./login.css";
+import jwtDecode from "jwt-decode";
 
 
 const Login = () => {
@@ -22,10 +23,14 @@ const Login = () => {
   }
 
   const token = localStorage.getItem("token");
+  const id=localStorage.getItem("id")
+  const role = localStorage.getItem("role");
   const custom_axios = axios.create({
     baseURL: 'http://localhost:3001',
     headers: {
-        Authorization: "Bearer" + token,
+        Authorization: "Bearer" + token ,
+        role:role,
+        id:id,
         Accept: "*/*",
         "Content-Type": "application/json"
 
@@ -37,26 +42,38 @@ const Login = () => {
   const [password, setPassword]=useState('');
   
 
-const loginApp =async(e)=> {
-  e.preventDefault();
-  if(email==""|| password==""){
-    toast.error("Please fill in the info");
-    return;
-  }
-  try{
-    const response = await custom_axios.post('/auth/login',{
-      email: email,
-      password: password,
-    });
-    localStorage.setItem("token", response.data.token);
-    toast.success("Login Successful")
-    navigate("/dashboard")
+  const loginApp = async (e) => {
+    e.preventDefault();
+    if (email === "" || password === "") {
+      toast.error("Please fill in the info");
+      return;
+    }
+    try {
+      const response = await custom_axios.post("/auth/login", {
+        email: email,
+        password: password,
+      });
+      const token = response.data.token;
+      const decodedToken = jwtDecode(token);
+      const role = decodedToken.role;
+      const id=decodedToken.id
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+      localStorage.setItem("id",id)
+      console.log("Role:", role); // Set the role in localStorage
+      console.log("id:",id)
   
-  }catch(error){
-    if(error.response.status== 401) console.warn(error.response.data.message);
-    toast.error("Unauthorized")
-  }
-};
+      toast.success("Login Successful");
+      navigate("/dashboard");
+    } catch (error) {
+      if (error.response.status === 401) {
+        console.warn(error.response.data.message);
+      }
+      toast.error("Unauthorized");
+    }
+  };
+  
 
     // const [email, setEmail]= React.useState('');
     // const [password, setPassword]= React.useState('');

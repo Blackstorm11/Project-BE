@@ -1,22 +1,30 @@
 {
   "Monday": {
-    "ML": "09:15 PM",
-    "CD": "10:15 PM",
-    "NPTEL": "11:15 PM",
-    "now":"4:28 PM "
+    "MM": "12:51 PM",
+    "CTNS": "01:05 PM",
+    "NPTEL": "12:10 PM",
+    "MM1":"01:00 PM ",
+    "CTNS1": "02:55 PM"
   },
   "Tuesday": {
-    "ML": "09:15",
-    "CD": "10:15",
     
-    "NPTEL": "11:15",
-    "letsGo":"5:29 PM"
+    
   },
   "Wednesday": {
-    "ML": "09:15",
-    "CD1": "10:15",
-    "NPTEL": "11:15",
-    "CD2": "5:45"
+    "MM": "10:10 AM",
+    "NPTEL": "11:10 ASM",
+    "CTNS": "12:10 PM",
+    "MM1":"01:00 PM "
+  },
+  "Thrusday": {
+
+  },
+
+  "Friday": {
+    
+  },
+  "Saturday": {
+   
   }
 }
 

@@ -1,7 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
 import Adminlogin from "./pages/Adminlogin";
-import ProtectRoute from "./ProtectRoute"
+// import ProtectedRoute from "./ProtectRoute";
+import { Navigate } from "react-router-dom";
 import Dashboard from "./pages/DashBoard";
 import Fpass from "./components/Cards/Forgot_pass/Fpass";
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,21 +22,21 @@ import { FinalLabelsProvider } from "./components/faceRecognition/finallabelCont
 import Upload from "./components/Cards/Register_page/upload";
 import {FinalSubjectProvider} from "./components/faceRecognition/finalSubjectContext"
 
+
+const ProtectedRoute = ({ element }) => {
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
+  if (!token || role !== "Admin") {
+    return <Navigate to="/" />;
+  }
+
+  return <>{element}</>
+};
 function App() {
   // const user = useUser();
   return (
     <>
-    
-   
-      {/* {user == null ? 
-        <div className="taxt-center">
-				
-					<h1>LIFE</h1>
-					
-					<p>Sign in with Google to use the app.</p>
-				</div>
-				
-				: */}
         <ToastContainer autoClose={3000} position={"top-left"}/>
         <FinalLabelsProvider>
         <FinalSubjectProvider>
@@ -52,11 +53,18 @@ function App() {
           <Route path="/time_table" element={<Timetable_log />} />
           
           <Route path="/attendance_log" element={<Attendance_log />} />
-          <Route path="/face" element={<FaceRecognition />} />
-         
+       
+          
           <Route path="/secondFace" element={<FApp/>}/> 
           <Route path="/upload" element={<Upload/>}/>
-        </Routes>
+           
+          <Route
+              path="/face"
+              element={
+                <ProtectedRoute element={<FaceRecognition />} />
+              }
+            />
+          </Routes>
         </FinalSubjectProvider>
         </FinalLabelsProvider>
     </>

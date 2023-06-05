@@ -16,6 +16,7 @@
   "face-api.js": "^0.22.2",
   "firebase": "^9.19.1",
   "https-browserify": "^1.0.0",
+  "jsonwebtoken": "^9.0.0",
   "jwt-decode": "^3.1.2",
   "node-cron": "^3.0.2",
   "node-onvif": "^0.1.7",

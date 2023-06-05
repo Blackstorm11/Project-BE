@@ -220,14 +220,15 @@ function FaceRecognition() {
         minute: "numeric",
         hour12: true,
       });
-  
+    
       if (currentDay in Schedule) {
         const subjects = Schedule[currentDay];
   
         for (const [scheduledSubject, time] of Object.entries(subjects)) {
           const scheduledTime = new Date(`01/01/2023 ${time}`).getTime();
           const currentTime = new Date(`01/01/2023 ${currentTimeString}`).getTime();
-  
+          console.log(currentTime)
+          console.log(scheduledTime)
           if (scheduledTime === currentTime) {
             console.log("done");
             handleRecognizeFaces();

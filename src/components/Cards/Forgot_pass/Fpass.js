@@ -4,6 +4,10 @@ import fp from "../../../assets/fp.gif";
 import "./fp.css";
 
 const Fpass = () => {
+
+  const handleSubmit=e=>{
+      e.preventDefault()
+  }
   return (
     <div className="card position-absolute top-50 start-50 translate-middle">
       <div className="card-body">
@@ -24,7 +28,7 @@ const Fpass = () => {
                 type="email"
                 className="form-control mt-1"
                 placeholder="Enter Email Id"
-                aria-required
+                aria-required onChange={e=> this.email=e.target.value}
               />
             </div>
             <br />

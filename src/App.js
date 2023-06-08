@@ -21,7 +21,9 @@ import FApp from "./components/faceRecognition/switchCam";
 import { FinalLabelsProvider } from "./components/faceRecognition/finallabelContext"
 import Upload from "./components/Cards/Register_page/upload";
 import {FinalSubjectProvider} from "./components/faceRecognition/finalSubjectContext"
-
+import InteractWAttendance from "./components/Log/InteractWAttendance"
+import Main_register from "./components/Cards/Register_page/Main_register"
+import T_register from './components/Cards/Register_page/T_register'
 
 const ProtectedRoute = ({ element }) => {
   const token = localStorage.getItem("token");
@@ -48,12 +50,14 @@ function App() {
          
           <Route path="/reset" element={<Resetpw />} />
           <Route path="/logout" element={<Logout />} />
-  
+
           <Route path="/register" element={<Register />} />
+          <Route path="/m_register" element={<Main_register/>} />
+          <Route path="/t_register" element={<T_register/>} />
           <Route path="/time_table" element={<Timetable_log />} />
           
           <Route path="/attendance_log" element={<Attendance_log />} />
-       
+          <Route path="/interact" element={<InteractWAttendance/>}/>
           
           <Route path="/secondFace" element={<FApp/>}/> 
           <Route path="/upload" element={<Upload/>}/>

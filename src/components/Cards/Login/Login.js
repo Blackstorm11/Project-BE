@@ -10,7 +10,7 @@ import jwtDecode from "jwt-decode";
 const Login = () => {
   let navigate = useNavigate();
   const Registration=()=>{
-    navigate('/register')
+    navigate('/m_register')
   }
   function hoverOut() {
     var p = document.getElementById("pwd");

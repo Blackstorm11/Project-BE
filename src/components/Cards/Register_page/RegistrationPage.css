@@ -1,0 +1,46 @@
+
+  .registration-container {
+    max-width: 400px;
+    margin: 0 auto;
+
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .registration-container .form-group {
+    margin-bottom: 46px;
+
+  }
+  
+  .registration-container label {
+    display: block;
+    font-weight: bold;
+  }
+  .registration-container 
+  input[type='text'],
+  input[type='email'],
+  input[type='password'] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+
+.registration-container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .registration-container button:hover {
+    background-color: #45a049;
+  }
+  

@@ -2,9 +2,14 @@ import React, { useState, useEffect ,useContext} from "react";
 import "./attendance_log.css";
 import { FinalLabelsContext } from "../faceRecognition/finallabelContext";
 import { FinalSubjectContext } from "../faceRecognition/finalSubjectContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+
 
 const Attendance = () => {
   const [results, setResult] = useState([]);
+  const nevigate=useNavigate()
   const [formattedDateTime, setFormattedDateTime] = useState(null);
   const { finalLabels } = useContext(FinalLabelsContext);
   const {scheduledSubject}=useContext(FinalSubjectContext)
@@ -100,6 +105,7 @@ const Attendance = () => {
     .then(([res1, res2,res3]) => {
       // Extract the rollNo values from res1
       const rollNoArray = res1.map((item) => item.rollNo);
+      // const nameArray=res1.map((item)=> item.name)
       const attendanceLog=res2
       // Extract the person values from res2
       // const personArray = res2.map((item) => item.person);
@@ -161,6 +167,17 @@ const Attendance = () => {
   useEffect(() => {
     getData();
   }, []);
+  const handleChange=()=>{
+    const role = localStorage.getItem("role");
+    if(role == "Reader"){
+      toast.error("Unauthorized")
+    }
+    else{
+      nevigate('/interact')
+    }
+   
+  }
+
 
   // Toggle Content
   const [show, setShow] = useState(false);
@@ -186,6 +203,7 @@ const Attendance = () => {
         )
     }
   }
+
   return (
     <>
       <div className="container3">
@@ -219,15 +237,17 @@ const Attendance = () => {
           <br />
           <button type="toggle" onClick={handleClick}>HIstory</button>
           <br />
-
+           
+          
           {/* Toggle Content */}
           {show && (
+            
             <table>
               <thead>
                 <tr>
                   <th>Sr.No</th>
                   <th>Student Name</th>
-                  {/* <th>Roll No</th> */}
+                  <th>Roll No</th>
                   <th>Status</th>
                   <th>Date/Time</th>
                 </tr>
@@ -236,6 +256,7 @@ const Attendance = () => {
               {results.rollNoData.map((data, index) => (
   <tr key={index}>
     <td>{index + 1}</td>
+    <td>{data.name}</td>
     <td>{data.rollNo}</td>
     <td>{results.results[index].result}</td>
     <td>{formattedDateTime}</td> {/* Display fetch date and time */}
@@ -247,27 +268,28 @@ const Attendance = () => {
           )}
           {
             show1 &&(
+             
               <table>
                 <thead>
                   <tr>
                   <th>Sr.No</th>
-                  <th>RollNo</th>
+                  <th>Student Name</th>
+                  <th>Roll No</th>
                   <th>Status</th>
-                  <th>Date/time</th>
+                  <th>Date/Time</th>
                   </tr>   
                   </thead>
-                  <tbody>
-                  {
-                    results.attendanceLog.map((data,index)=>(
-                    <tr key={index}>
-                      <td>{index+1}</td>
-                      <td>{data.person}</td>
-                      <td>{data.Status}</td>
-                      <td>{data.created_at}</td>
-                    </tr>
-                  ))
-                
-              }
+                  <tbody onClick={handleChange}>
+                  {results.attendanceLog && results.attendanceLog.map((data, index) => (
+  <tr key={index}>
+    <td>{index + 1}</td>
+    <td>{data.name}</td>
+    <td>{data.person}</td>
+    
+    <td>{data.Status}</td>
+    <td>{data.created_at}</td>
+  </tr>
+))}
                   </tbody>
              
               </table>

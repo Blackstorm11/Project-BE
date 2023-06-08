@@ -64,8 +64,9 @@ header{
 	--bg-darkpurple: #1c0913;
 	--bg-darkgreen: #002625;
 	--bg-input: #4B4B4B;
-	--red: #ba0035;
+	/* --red: #ba0035; */
 	--greenwater: #00beb7;
+	
 	--gradient: linear-gradient(80deg, #ba0035 18%, #5b5b84 70%, #00beb7 105%);
 }
 
